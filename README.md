@@ -6,7 +6,7 @@
 > 还是建议安装一下python比较好  
 > 时间充裕的话，还是手动评价一下比较好(吐槽一下，两分钟提交限制)  
 > 请确认电脑连上学校内网  
-> 学校已经将默认密码改为身份证后8位
+> ⚠️学校已经将默认密码改为身份证后8位
 
 [jxpg-windows(单击这里下载)]()
 ## 请解压后再运行！！
@@ -45,7 +45,7 @@ python3  jxpg.py
 ---
 ## License
 
-Copyright [2018] [CyouGuang]
+Copyright 2018 CyouGuang
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
