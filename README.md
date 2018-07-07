@@ -2,7 +2,7 @@
 # 大连民族大学教学快速教学评估小工具
 ## The tools of dlnu evaluate
 ---
-### 如果你电脑中没有安装python，也不想安装python的话，这里提供了使用pyInstall打包好的windows版本
+### 如果你电脑中没有安装python，也不想安装python的话，这里提供了使用pyInstall打包好的windows版本  
 > 还是建议安装一下python比较好  
 > 时间充裕的话，还是手动评价一下比较好(吐槽一下，两分钟提交限制)  
 > 请确认电脑连上学校内网
@@ -12,13 +12,13 @@
 ---
 ## 使用说明
 ### 功能说明
-+ 快速完成教学评估，仅需要十几秒钟
++ 快速完成教学评估,仅需要十几秒钟
 + 默认选择 非常满意
 ### 使用步骤
 1. 将程序下载下来   
 [jxpg.py(单击这里下载)](https://github.com/sbtobb/dlnujxpg/archive/master.zip)  
 2. saysomething.txt 中存放了主观评价，每行一条，将随机选取一条
-> 注意 本文件使用utf-8编码 使用windows默认记事本打开可能会显示乱码,请使用支持utf-8编码的编辑器来打开此文件，请确保文件使用utf-8保存  
+> 注意本文件使用utf-8编码,使用windows默认记事本打开可能会显示乱码,请使用支持utf-8编码的编辑器来打开此文件，请确保文件使用utf-8保存  
 3. 
 ```  
 python3  jxpg.py  
