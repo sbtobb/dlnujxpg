@@ -9,7 +9,7 @@
 > ⚠️学校已经将默认密码改为身份证后8位
 
 [jxpg-windows(单击这里下载)](https://github.com/sbtobb/dlnujxpg/releases/download/0.1/jxpg-windows-0.1.zip)
-## 请解压后再运点击jxpg.exe运行！！
+## 请解压后再点击jxpg.exe运行！！
 ---
 ## 使用说明
 ### 功能说明
