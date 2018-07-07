@@ -20,7 +20,7 @@ def evaluation(data):
     for inputTag in soup.find_all("input",type="radio"):
         if inputTag['value'].find("_1") != -1:
             payloadData[inputTag['name']]=inputTag['value']
-    with open(path+'/saysomething.txt','r') as something:
+    with open(path+'/saysomething.txt','r',encoding="utf-8") as something:
         zgpjs = something.readlines()
         randomNum = random.randint(0,len(zgpjs))
         payloadData["zgpj"]=zgpjs[randomNum-1].encode('gb2312')
@@ -87,7 +87,7 @@ def main():
     isquit = False
     islogin = False
     print(path)
-    with open(path+'/banner.txt', 'r') as f:
+    with open(path+'/banner.txt', 'r',encoding="utf-8") as f:
         print(f.read())
     while not isquit:
         while not islogin:
