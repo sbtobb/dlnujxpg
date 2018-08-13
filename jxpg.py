@@ -83,12 +83,9 @@ def login(username, password):
         return False
 
 
-def main():
+def startValuate():
     isValuate = True
     islogin = False
-    print(path)
-    with open(path+'/banner.txt', 'r',encoding="utf-8") as f:
-        print(f.read())
     while isValuate:
         #开始登陆流程
         username = input("请输入学号:")
@@ -124,6 +121,24 @@ def main():
             elif command.lower() == 'q':
                 isValuate = False
 
+def mainMenu():
+    print(path)
+    with open(path+'/banner.txt', 'r',encoding="utf-8") as f:
+        print(f.read())
+    menuText = ("--------------------主菜单-------------------\n"+
+                "1.开始评价\n"+
+                "q.退出程序\n"
+                "---------------------------------------------\n")
+    while True:
+        userSlect = input(menuText + "请选择菜单序号：")
+        if userSlect == '1':
+            startValuate()
+            break
+        elif userSlect.lower() == 'q':
+            quit()
+        else:
+            print("输入出错~ 请检查!")
+    
 
 if __name__ == '__main__':
-    main()
+    mainMenu()
