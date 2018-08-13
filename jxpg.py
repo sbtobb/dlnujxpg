@@ -84,35 +84,45 @@ def login(username, password):
 
 
 def main():
-    isquit = False
+    isValuate = True
     islogin = False
     print(path)
     with open(path+'/banner.txt', 'r',encoding="utf-8") as f:
         print(f.read())
-    while not isquit:
-        while not islogin:
-            username = input("请输入学号:")
-            password = input("请输入密码:")
-            if login(username=username, password=password):
-                print("登录成功，本项目已在GitHub开源，欢迎star或fork")
-                islogin = True
-            else:
-                print("登录失败,请检查是否在学校内网，有问题在Github发issue")
-        commandHelp = ("---------------------------------------------\n"
-                       '1.一键完成全部(默认非常满意) r.重新登录 q.退出程序\n'
-                       '----------------------------------------------')
-        print(commandHelp)
-        command = input("请输入需要执行的命令(输入序号即可):")
-        if command.lower() == "q":
-            isquit = True
-        elif command == "r":
+    while isValuate:
+        #开始登陆流程
+        username = input("请输入学号:")
+        password = input("请输入密码:")
+        if login(username=username, password=password):
+            print("登录成功，本项目已在GitHub开源，欢迎star或fork")
+            islogin = True
+        else:
+            print("登录失败,请检查是否在学校内网，有问题在Github发issue")
             islogin = False
-        elif command == "1" :
-            for evalData in getEvaluationList():
-                evaluation(evalData)
-            print("已经完成所有教学评估，感谢使用快速教学评估小工具")
-
-
+        
+        if islogin:
+        #登陆成功，准备评价
+            commandHelp = ("---------------------------------------------\n"
+                        '1.一键完成全部(默认非常满意) r.重新登录 q.退出程序\n'
+                        '----------------------------------------------')
+            print(commandHelp)
+            command = input("请输入需要执行的命令(输入序号即可):")
+            if command.lower() == 'q':
+                isValuate = False
+            elif command.lower() == 'r':
+                continue
+            elif command == "1":
+                for evalData in getEvaluationList():
+                    evaluation(evalData)
+                print("已经完成所有教学评估，感谢使用快速教学评估小工具")
+                isValuate = False
+        else:
+        #未登录
+            command = input("请输入功能序号(r.重新登陆 q.退出程序):")
+            if command.lower() == 'r':
+                continue
+            elif command.lower() == 'q':
+                isValuate = False
 
 
 if __name__ == '__main__':
