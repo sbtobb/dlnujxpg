@@ -121,12 +121,76 @@ def startValuate():
             elif command.lower() == 'q':
                 isValuate = False
 
+def editSamesomething():
+    with open(path+"/saysomething.txt", 'r',encoding="utf-8") as f:
+        commentsList = f.read().split('\n')
+    isEdit = True
+    while isEdit:
+        #打印当前评论
+        print("---------------------------------------------")
+        print("当前评论：")
+        for commentIndex in range( len(commentsList) ):
+            print("{}.{}".format(commentIndex, commentsList[commentIndex]))
+        print("---------------------------------------------")
+        #开始修改
+        print("1.增 2.删 3.改 4.保存退出 5.退出")
+        userSelect = input("输入功能对应序号：")
+        if userSelect == '1':
+            itemStr = input("请输入要增加的评论(回车结束)：\n")
+            if input("确定要增加条目 “{}” 到评论吗？(y/n)".format(itemStr)).lower() == 'y':
+                commentsList.append(itemStr)
+            else:
+                print("您放弃了修改")
+        elif userSelect == '2':
+            try:
+                selectIndex = int(input("请输入要删除评论的序号："))
+                if input("确定要删除条目 “{}” 吗？(y/n)".format(commentsList[selectIndex])).lower() == 'y':
+                    del commentsList[selectIndex]
+                else:
+                    print("您放弃了删除")
+            except IndexError:
+                print("输入的序号不在有效范围内！")
+            except ValueError:
+                print("你输入了错误的序号！")
+            except:
+                raise
+        elif userSelect == '3':
+            try:
+                selectIndex = int(input("请输入要修改评论的序号："))
+                commentStrToReplace = input("要将评论修改为(回车结束)：")
+                if input( "原条目 “{}” \n新条目 “{}”\n确定要修改吗？(y/n)".format( commentsList[selectIndex], commentStrToReplace ) ).lower() == 'y':
+                    commentsList[selectIndex] = commentStrToReplace
+                else:
+                    print("您放弃了修改")
+            except IndexError:
+                print("输入的序号不在有效范围内！")
+            except ValueError:
+                print("你输入了错误的序号！")
+            except:
+                raise
+        elif userSelect == '4':
+            try:
+                f = open(path+"/saysomething.txt", 'w',encoding="utf-8")
+                f.write( '\n'.join( commentsList ) )
+                print("操作成功结束！")
+            except:
+                print("在打开并写入的过程中绝逼出了些问题，有问题在Github发issue")
+                raise
+            finally:
+                f.close()
+                isEdit = False
+        elif userSelect == '5':
+            isEdit = False
+        else:
+            print("输入的序号无法判断，请重试~")
+
 def mainMenu():
-    print(path)
+    print("当前工作目录:", path)
     with open(path+'/banner.txt', 'r',encoding="utf-8") as f:
         print(f.read())
-    menuText = ("--------------------主菜单-------------------\n"+
-                "1.开始评价\n"+
+    menuText = ("--------------------主菜单-------------------\n"
+                "1.开始评价\n"
+                "2.修改评语\n"
                 "q.退出程序\n"
                 "---------------------------------------------\n")
     while True:
@@ -134,6 +198,8 @@ def mainMenu():
         if userSlect == '1':
             startValuate()
             break
+        elif userSlect == '2':
+            editSamesomething()
         elif userSlect.lower() == 'q':
             quit()
         else:
