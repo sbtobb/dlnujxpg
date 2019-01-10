@@ -6,9 +6,8 @@
 > 还是建议安装一下python比较好  
 > 时间充裕的话，还是手动评价一下比较好(吐槽一下，两分钟提交限制)  
 > 请确认电脑连上学校内网  
-> ⚠️学校已经将默认密码改为身份证后8位
 
-[jxpg-windows(单击这里下载)](https://github.com/sbtobb/dlnujxpg/releases/download/0.1/jxpg-windows-0.1.zip)
+[jxpg-windows(单击这里下载)](https://github.com/sbtobb/dlnujxpg/releases/download/0.2/jxpg-windows-0.2.zip)
 ## 请解压后再点击jxpg.exe运行！！
 ---
 ## 使用说明
@@ -20,7 +19,7 @@
 1. 将程序下载下来   
 [jxpg.py(单击这里下载)](https://github.com/sbtobb/dlnujxpg/archive/master.zip)  
 2. saysomething.txt 中存放了主观评价，每行一条，将随机选取一条
-> ⚠️注意:本文件使用utf-8编码,使用windows默认记事本打开可能会显示乱码,请使用支持utf-8编码的编辑器来打开此文件，请确保文件使用utf-8保存  
+> ⚠️注意:本文件使用utf-8编码,使用windows默认记事本打开可能会显示乱码,请使用支持utf-8编码的编辑器来打开此文件，请确保文件使用utf-8保存  
 3. 
 ```  
 python3  jxpg.py  
@@ -28,6 +27,10 @@ python3  jxpg.py
 
 4. 根据命令行完成即可
 
+---
+## 更新日志
+
+- 2019/1/10 修复登录模块，添加人性化提示
 ---
 ## 开发环境
 + OS: macOS Sierra 10.12.6
