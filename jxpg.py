@@ -7,8 +7,10 @@ from bs4 import BeautifulSoup
 session = requests.session()
 headers = {'user-agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36"}
 path = os.path.split( os.path.realpath(sys.argv[0]))[0]
+debugMode = False
 
 def evaluation(data):
+    global debugMode
     subDatas = data.split("#@")
     payloadData = {"wjbm":subDatas[0],"bpr":subDatas[1],"bprm":subDatas[2],"wjmc":subDatas[3],
                "pgnrm":subDatas[4],"pgnr":subDatas[5],"oper":"wjShow","pageSize":"20",
@@ -24,7 +26,8 @@ def evaluation(data):
         zgpjs = something.readlines()
         randomNum = random.randint(0,len(zgpjs))
         payloadData["zgpj"]=zgpjs[randomNum-1].encode('gb2312')
-    print(payloadData)
+    if debugMode:
+        print(payloadData)
     if len(payloadData) > 4:
         response = session.post("http://zhjw.dlnu.edu.cn/jxpgXsAction.do?oper=wjpg",data=payloadData,headers=headers)
         response.encoding = response.apparent_encoding
@@ -50,51 +53,38 @@ def getEvaluationList():
 
     return evaluationList
 
-
-
-
 def login(username, password):
     response = session.get("http://zhjw.dlnu.edu.cn/", headers=headers)
     if response.status_code != 200:
         print("访问  http://zhjw.dlnu.edu.cn/  失败")
         return False
-    response = session.get(
-        "http://authserver.dlnu.edu.cn/authserver/login?service=http%3A%2F%2Fzhjw.dlnu.edu.cn%2Flogin.jsp",
-        headers=headers)
-    if response.status_code != 200:
-        print("访问  http://authserver.dlnu.edu.cn/  失败")
-        return False
-    response.encoding = response.apparent_encoding
-
-    data = {"username": username, "password": password}
-    # 煲汤
-    soup = BeautifulSoup(response.text, "html.parser")
-
-    for inputTag in soup.find_all(name="input", type="hidden"):
-        data[inputTag['name']] = inputTag['value']
-
+    data = {"ldap":"auth","zjh": username, "mm": password}
     response = session.post(
-        url="http://authserver.dlnu.edu.cn/authserver/login?service=http%3A%2F%2Fzhjw.dlnu.edu.cn%2Flogin.jsp",
-        data=data, headers=headers)
+            url="http://zhjw.dlnu.edu.cn/loginAction.do",
+            data=data, headers=headers)
     response.encoding = response.apparent_encoding
-    if response.text.find("密码有误") == -1:
-        return True
-    else:
-        return False
 
+    if response.text.find("请输入您的账号") != -1 or response.text.find("请输入您的密码") != -1:
+        return False
+    else:
+        return True
 
 def startValuate():
     isValuate = True
     islogin = False
     while isValuate:
-        #开始登陆流程
+        # 开始登陆流程
+        print("登录账号和密码为在综合教务的学号和密码")
         username = input("请输入学号:")
-        password = input("请输入密码:")
+        password = input("请输入密码(默认为学号):")
         if login(username=username, password=password):
             print("登录成功，本项目已在GitHub开源，欢迎star或fork")
             islogin = True
         else:
-            print("登录失败,请检查是否在学校内网，有问题在Github发issue")
+            print("登录失败,学号或密码错误 或者 请检查是否在学校内网，有问题在Github发issue")
+            print("如果已经回家,请登录学校官网->右下角菜单->VPN服务")
+            print("连接上VPN后保持VPN在线再来尝试打开使用")
+            print("学校官网:http://www.dlnu.edu.cn/hhh/index.htm")
             islogin = False
         
         if islogin:
@@ -191,15 +181,20 @@ def mainMenu():
     menuText = ("--------------------主菜单-------------------\n"
                 "1.开始评价\n"
                 "2.修改评语\n"
+                "d.开启调试模式(会有上传数据输出)\n"
                 "q.退出程序\n"
                 "---------------------------------------------\n")
     while True:
+        global debugMode
         userSlect = input(menuText + "请选择菜单序号：")
         if userSlect == '1':
             startValuate()
             break
         elif userSlect == '2':
             editSamesomething()
+        elif userSlect.lower() == 'd':
+            debugMode = True
+            print("开启调试模式成功")
         elif userSlect.lower() == 'q':
             quit()
         else:
