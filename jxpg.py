@@ -37,7 +37,7 @@ def evaluation(data):
         print(subDatas[4]+"：读取试卷列表失败！")
 
 def getEvaluationList():
-    response = session.get("http://zhjw.dlnu.edu.cn/jxpgXsAction.do?oper=listWj", headers=headers)
+    response = session.get("http://zhjw.dlnu.edu.cn/jxpgXsAction.do?oper=listWj&pageSize=300", headers=headers)
     response.encoding = response.apparent_encoding
     soup = BeautifulSoup(response.text, "html.parser")
     evaluationList = []
